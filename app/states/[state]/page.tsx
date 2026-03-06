@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation"
+import Link from "next/link"
 import { statesData } from "@/data/states"
 
 export default async function StatePage({
@@ -17,6 +18,21 @@ export default async function StatePage({
   if (!stateData) {
     return notFound()
   }
+
+  const industries = [
+    {
+      slug: "contractors",
+      name: "Contractors",
+    },
+    {
+      slug: "restaurants",
+      name: "Restaurants",
+    },
+    {
+      slug: "food-trucks",
+      name: "Food Trucks",
+    },
+  ]
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -86,6 +102,29 @@ export default async function StatePage({
               <span>{license.cost}</span>
             </div>
           ))}
+        </div>
+
+        <div className="bg-zinc-900 border border-gray-800 rounded-xl p-8">
+          <h2 className="text-2xl font-semibold mb-6">
+            Industry-Specific Permits
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {industries.map((industry) => (
+              <Link
+                key={industry.slug}
+                href={`/states/${stateData.slug}/${industry.slug}`}
+                className="border border-gray-700 rounded-lg p-4 hover:border-white transition"
+              >
+                <h3 className="text-lg font-medium">
+                  {industry.name}
+                </h3>
+                <p className="text-sm text-gray-400">
+                  View permits and licensing requirements
+                </p>
+              </Link>
+            ))}
+          </div>
         </div>
 
       </section>
