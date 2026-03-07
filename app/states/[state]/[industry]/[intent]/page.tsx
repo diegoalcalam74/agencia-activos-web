@@ -1,78 +1,66 @@
-import { notFound } from "next/navigation"
 import { permitIntents } from "@/data/permit-intents"
+import { industries } from "@/data/industries"
+import { states } from "@/data/states"
+import { notFound } from "next/navigation"
 
-export default function IntentPage({
-  params,
-}: {
-  params: { state: string; industry: string; intent: string }
-}) {
+type Props = {
+  params: {
+    state: string
+    industry: string
+    intent: string
+  }
+}
 
-  const stateSlug = params.state
-  const industrySlug = params.industry
-  const intentSlug = params.intent
+export async function generateStaticParams() {
+  const params = []
 
-  const intentData = permitIntents.find(
-    (i) => i.slug === intentSlug
-  )
+  for (const state of states) {
+    for (const industry of industries) {
+      for (const intent of permitIntents) {
+        params.push({
+          state: state.slug,
+          industry: industry.slug,
+          intent: intent.slug
+        })
+      }
+    }
+  }
 
-  if (!intentData) {
+  return params
+}
+
+export default function IntentPage({ params }: Props) {
+  const state = states.find(s => s.slug === params.state)
+  const industry = industries.find(i => i.slug === params.industry)
+  const intent = permitIntents.find(i => i.slug === params.intent)
+
+  if (!state || !industry || !intent) {
     return notFound()
   }
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main style={{ maxWidth: "900px", margin: "0 auto", padding: "40px" }}>
+      <h1>
+        {industry.name} {intent.title} in {state.name}
+      </h1>
 
-      <section className="max-w-6xl mx-auto px-8 py-20">
+      <p style={{ marginTop: "20px" }}>
+        {intent.description}
+      </p>
 
-        <p className="text-sm text-gray-400 mb-6 uppercase tracking-wide">
-          United States • {stateSlug} • {industrySlug}
+      <section style={{ marginTop: "40px" }}>
+        <h2>Overview</h2>
+
+        <p>
+          If you plan to operate a {industry.name.toLowerCase()} business in {state.name},
+          you must understand the licensing process, regulatory requirements,
+          and associated costs.
         </p>
 
-        <h1 className="text-4xl md:text-5xl font-bold mb-10">
-          {industrySlug} {intentData.title} in {stateSlug}
-        </h1>
-
-        <div className="bg-zinc-900 border border-gray-800 rounded-xl p-8 mb-10">
-          <p className="text-gray-400 leading-relaxed">
-            {intentData.description}
-          </p>
-        </div>
-
-        <div className="bg-zinc-900 border border-gray-800 rounded-xl p-8">
-
-          <h2 className="text-2xl font-semibold mb-4">
-            Related resources
-          </h2>
-
-          <div className="space-y-3 text-blue-400">
-
-            <a
-              href={`/states/${stateSlug}/${industrySlug}`}
-              className="block hover:underline"
-            >
-              {industrySlug} permits overview in {stateSlug}
-            </a>
-
-            <a
-              href={`/states/${stateSlug}/${industrySlug}/cost`}
-              className="block hover:underline"
-            >
-              {industrySlug} licensing cost in {stateSlug}
-            </a>
-
-            <a
-              href={`/states/${stateSlug}/${industrySlug}/license`}
-              className="block hover:underline"
-            >
-              {industrySlug} license requirements in {stateSlug}
-            </a>
-
-          </div>
-
-        </div>
-
+        <p>
+          This page explains {intent.title.toLowerCase()} for {industry.name.toLowerCase()} businesses in {state.name}.
+        </p>
       </section>
-
     </main>
   )
 }
