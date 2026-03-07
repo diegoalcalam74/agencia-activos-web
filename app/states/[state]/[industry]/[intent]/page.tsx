@@ -2,7 +2,7 @@ export const dynamicParams = true
 
 import { permitIntents } from "@/data/permit-intents"
 import { industries } from "@/data/industries"
-import { states } from "@/data/states"
+import { statesData } from "@/data/states"
 import { notFound } from "next/navigation"
 
 type PageProps = {
@@ -14,9 +14,16 @@ type PageProps = {
 }
 
 export default function IntentPage({ params }: PageProps) {
-  const stateData = states.find((s) => s.slug === params.state)
-  const industryData = industries.find((i) => i.slug === params.industry)
-  const intentData = permitIntents.find((i) => i.slug === params.intent)
+
+  const stateData = statesData.find((s) => s.slug === params.state)
+
+  const industryData = industries.find(
+    (i) => i.slug === params.industry
+  )
+
+  const intentData = permitIntents.find(
+    (i) => i.slug === params.intent
+  )
 
   if (!stateData || !industryData || !intentData) {
     notFound()
@@ -62,10 +69,6 @@ export default function IntentPage({ params }: PageProps) {
           performed within the industry.
         </p>
 
-        <p>
-          Always consult the official state licensing authority or local
-          government office to confirm the most up-to-date information.
-        </p>
       </section>
     </main>
   )
