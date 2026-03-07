@@ -104,11 +104,21 @@ export default async function IndustryPage({
             Typical Permits & Requirements
           </h2>
 
-          <ul className="list-disc pl-6 text-gray-400 space-y-2">
-            {industryData.typicalPermits.map((permit, index) => (
-              <li key={index}>{permit}</li>
-            ))}
-          </ul>
+          {industryData.typicalPermits ? (
+
+            <ul className="list-disc pl-6 text-gray-400 space-y-2">
+              {industryData.typicalPermits.map((permit, index) => (
+                <li key={index}>{permit}</li>
+              ))}
+            </ul>
+
+          ) : (
+
+            <p className="text-gray-400">
+              Permit requirements vary by state and municipality.
+            </p>
+
+          )}
 
         </div>
 
