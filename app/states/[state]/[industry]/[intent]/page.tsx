@@ -5,6 +5,27 @@ import { industries } from "@/data/industries"
 import { statesData } from "@/data/states"
 import { notFound } from "next/navigation"
 
+export async function generateStaticParams() {
+
+  const params = []
+
+  for (const state of statesData) {
+    for (const industry of industries) {
+      for (const intent of permitIntents) {
+
+        params.push({
+          state: state.slug,
+          industry: industry.slug,
+          intent: intent.slug
+        })
+
+      }
+    }
+  }
+
+  return params
+}
+
 type PageProps = {
   params: {
     state: string
@@ -15,7 +36,9 @@ type PageProps = {
 
 export default function IntentPage({ params }: PageProps) {
 
-  const stateData = statesData.find((s) => s.slug === params.state)
+  const stateData = statesData.find(
+    (s) => s.slug === params.state
+  )
 
   const industryData = industries.find(
     (i) => i.slug === params.industry
@@ -38,6 +61,7 @@ export default function IntentPage({ params }: PageProps) {
         color: "white"
       }}
     >
+
       <h1>
         {industryData.name} {intentData.title} in {stateData.name}
       </h1>
@@ -47,6 +71,7 @@ export default function IntentPage({ params }: PageProps) {
       </p>
 
       <section style={{ marginTop: "40px" }}>
+
         <h2>Overview</h2>
 
         <p>
@@ -70,6 +95,7 @@ export default function IntentPage({ params }: PageProps) {
         </p>
 
       </section>
+
     </main>
   )
 }
