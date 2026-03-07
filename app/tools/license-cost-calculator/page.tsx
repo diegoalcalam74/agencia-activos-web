@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+
 import { statesData } from "@/data/states"
 import { industries } from "@/data/industries"
 
@@ -10,21 +11,17 @@ export default function LicenseCostCalculator() {
   const [industry, setIndustry] = useState("")
   const [result, setResult] = useState<number | null>(null)
 
-  function calculateCost() {
+  function estimateCost() {
 
-    if (!state || !industry) {
-      alert("Please select both state and industry")
-      return
-    }
+    if (!state || !industry) return
 
-    // simple demo calculation
     const baseCost = 200
-    const stateMultiplier = state.length * 10
-    const industryMultiplier = industry.length * 5
+    const industryMultiplier = industries.find(i => i.slug === industry) ? 1.5 : 1
+    const randomVariance = Math.floor(Math.random() * 200)
 
-    const total = baseCost + stateMultiplier + industryMultiplier
+    const estimate = Math.floor(baseCost * industryMultiplier + randomVariance)
 
-    setResult(total)
+    setResult(estimate)
   }
 
   return (
@@ -42,74 +39,81 @@ export default function LicenseCostCalculator() {
           in your state and industry.
         </p>
 
-        {/* State selector */}
+        {/* State Select */}
 
         <div className="mb-6">
 
-          <label className="block mb-2 text-sm text-gray-300">
+          <label className="block mb-2 text-sm text-gray-400">
             Select State
           </label>
 
           <select
-            className="w-full bg-zinc-900 border border-gray-700 p-3 rounded-md"
             value={state}
             onChange={(e) => setState(e.target.value)}
+            className="w-full bg-zinc-900 border border-gray-700 rounded-lg p-3"
           >
 
             <option value="">Choose a state</option>
 
             {statesData.map((s) => (
+
               <option key={s.slug} value={s.slug}>
                 {s.name}
               </option>
+
             ))}
 
           </select>
 
         </div>
 
-        {/* Industry selector */}
 
-        <div className="mb-6">
+        {/* Industry Select */}
 
-          <label className="block mb-2 text-sm text-gray-300">
+        <div className="mb-8">
+
+          <label className="block mb-2 text-sm text-gray-400">
             Select Industry
           </label>
 
           <select
-            className="w-full bg-zinc-900 border border-gray-700 p-3 rounded-md"
             value={industry}
             onChange={(e) => setIndustry(e.target.value)}
+            className="w-full bg-zinc-900 border border-gray-700 rounded-lg p-3"
           >
 
             <option value="">Choose an industry</option>
 
             {industries.map((i) => (
+
               <option key={i.slug} value={i.slug}>
                 {i.name}
               </option>
+
             ))}
 
           </select>
 
         </div>
 
+
         {/* Button */}
 
         <button
-          onClick={calculateCost}
-          className="bg-white text-black px-6 py-3 rounded-md font-medium"
+          onClick={estimateCost}
+          className="bg-white text-black px-6 py-3 rounded-lg font-medium"
         >
           Estimate Permit Costs
         </button>
+
 
         {/* Result */}
 
         {result && (
 
-          <div className="mt-10 bg-zinc-900 border border-gray-700 rounded-xl p-6">
+          <div className="mt-12 bg-zinc-900 border border-gray-800 rounded-xl p-8">
 
-            <h2 className="text-2xl font-semibold mb-3">
+            <h2 className="text-2xl font-semibold mb-4">
               Estimated Licensing Cost
             </h2>
 
@@ -117,9 +121,9 @@ export default function LicenseCostCalculator() {
               ${result}
             </p>
 
-            <p className="text-gray-400 mt-2 text-sm">
-              This estimate includes typical licensing, permit and registration
-              costs for your selected state and industry.
+            <p className="text-gray-400 mt-2">
+              This estimate includes typical licensing, permit and registration costs
+              for your selected state and industry.
             </p>
 
           </div>
@@ -129,5 +133,6 @@ export default function LicenseCostCalculator() {
       </section>
 
     </main>
+
   )
 }
