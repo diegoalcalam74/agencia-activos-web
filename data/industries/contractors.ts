@@ -37,6 +37,17 @@ export default {
     }
   ],
 
+  typicalPermits: [
+    "General Contractor License",
+    "Trade License (Electrical, Plumbing, HVAC)",
+    "Building Permit",
+    "Contractor Bond",
+    "General Liability Insurance"
+  ],
+
+  estimatedCosts:
+    "$200 – $1500 depending on trade and state",
+
   commonLicenses: [
     {
       license: "General Contractor License",
@@ -44,7 +55,7 @@ export default {
       processingTime: "4–8 weeks"
     },
     {
-      license: "Trade License (Electrical/Plumbing/HVAC)",
+      license: "Trade License (Electrical / Plumbing / HVAC)",
       cost: "$100 – $300",
       processingTime: "2–6 weeks"
     },
@@ -62,14 +73,14 @@ export default {
 
   faqs: [
     {
-      question: "Do I need a contractor license to do construction work?",
+      question: "Do I need a contractor license to perform construction work?",
       answer:
-        "Yes. Most states require contractors to hold a license if performing work above a minimum dollar threshold, often $500–$2,000 depending on the state."
+        "Yes. Most states require contractors to hold a license if performing work above a minimum dollar threshold, often between $500 and $2,000 depending on the state."
     },
     {
       question: "How long does it take to get a contractor license?",
       answer:
-        "Most contractor licenses take 2–8 weeks depending on exams, background checks, and documentation requirements."
+        "Most contractor licenses take between 2 and 8 weeks depending on exams, background checks, and documentation requirements."
     },
     {
       question: "Do contractors need insurance?",
