@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { statesData } from "@/data/states"
+import { industries } from "@/data/industries"
 
 export default async function StatePage({
   params,
@@ -18,21 +19,6 @@ export default async function StatePage({
   if (!stateData) {
     return notFound()
   }
-
-  const industries = [
-    {
-      slug: "contractors",
-      name: "Contractors",
-    },
-    {
-      slug: "restaurants",
-      name: "Restaurants",
-    },
-    {
-      slug: "food-trucks",
-      name: "Food Trucks",
-    },
-  ]
 
   return (
     <main className="min-h-screen bg-black text-white">
