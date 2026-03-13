@@ -22,7 +22,11 @@ export type Industry = {
 }
 
 import contractors from "./industries/contractors"
+import foodTrucks from "./industries/food-trucks"
+import restaurants from "./industries/restaurants"
 
 export const industries: Industry[] = [
-  contractors
+  contractors,
+  foodTrucks,
+  restaurants
 ]

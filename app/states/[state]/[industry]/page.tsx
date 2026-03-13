@@ -1,8 +1,18 @@
 import { notFound } from "next/navigation"
+import Link from "next/link"
 import type { Metadata } from "next"
 
 import { statesData } from "@/data/states"
 import { industries } from "@/data/industries"
+
+
+const intents = [
+  { slug: "permits", name: "Permits" },
+  { slug: "licenses", name: "Licenses" },
+  { slug: "cost", name: "Costs" },
+  { slug: "requirements", name: "Requirements" },
+  { slug: "how-to-start", name: "How to Start" },
+]
 
 
 export async function generateStaticParams() {
@@ -46,7 +56,6 @@ export async function generateMetadata({
 
   return {
     title: `${industryData.name} Permits & Licensing in ${stateData.name} (2026 Guide)`,
-
     description: `Complete guide to ${industryData.name.toLowerCase()} permits, licensing requirements, regulatory costs, and compliance rules in ${stateData.name}.`
   }
 }
@@ -94,6 +103,33 @@ export default async function IndustryPage({
         <p className="text-gray-400 max-w-3xl mb-12">
           {industryData.overview}
         </p>
+
+
+        {/* INTENTS NAVIGATION */}
+
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-16">
+
+          {intents.map((intent) => (
+
+            <Link
+              key={intent.slug}
+              href={`/states/${stateSlug}/${industrySlug}/${intent.slug}`}
+              className="border border-gray-700 rounded-lg p-4 hover:border-white transition"
+            >
+
+              <h3 className="text-lg font-medium">
+                {intent.name}
+              </h3>
+
+              <p className="text-sm text-gray-400">
+                View guide
+              </p>
+
+            </Link>
+
+          ))}
+
+        </div>
 
 
         {/* Typical Permits */}

@@ -52,11 +52,11 @@ export default async function StatePage({
           {industries.map((industry) => (
             <Link
               key={industry.slug}
-              href={`/states/${stateData.slug}/${industry.slug}`}
+              href={`/states/${stateData.slug}/${industry.slug}/permits`}
               className="border border-gray-700 rounded-lg p-4 hover:border-white transition"
             >
               <h3 className="text-lg font-medium">
-                {industry.name}
+                {industry.name} Permits
               </h3>
 
               <p className="text-sm text-gray-400">
