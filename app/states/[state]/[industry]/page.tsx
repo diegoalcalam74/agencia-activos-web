@@ -5,7 +5,6 @@ import type { Metadata } from "next"
 import { statesData } from "@/data/states"
 import { industries } from "@/data/industries"
 
-
 const intents = [
   { slug: "permits", name: "Permits" },
   { slug: "licenses", name: "Licenses" },
@@ -13,7 +12,6 @@ const intents = [
   { slug: "requirements", name: "Requirements" },
   { slug: "how-to-start", name: "How to Start" },
 ]
-
 
 export async function generateStaticParams() {
   const params = []
@@ -29,7 +27,6 @@ export async function generateStaticParams() {
 
   return params
 }
-
 
 export async function generateMetadata({
   params,
@@ -59,7 +56,6 @@ export async function generateMetadata({
     description: `Complete guide to ${industryData.name.toLowerCase()} permits, licensing requirements, regulatory costs, and compliance rules in ${stateData.name}.`
   }
 }
-
 
 export default async function IndustryPage({
   params,
@@ -104,8 +100,7 @@ export default async function IndustryPage({
           {industryData.overview}
         </p>
 
-
-        {/* INTENTS NAVIGATION */}
+        {/* INTENTS */}
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-16">
 
@@ -131,8 +126,7 @@ export default async function IndustryPage({
 
         </div>
 
-
-        {/* Typical Permits */}
+        {/* PERMITS */}
 
         <div className="bg-zinc-900 border border-gray-800 rounded-xl p-8 mb-12">
 
@@ -158,8 +152,7 @@ export default async function IndustryPage({
 
         </div>
 
-
-        {/* Estimated Costs */}
+        {/* COSTS */}
 
         <div className="bg-zinc-900 border border-gray-800 rounded-xl p-8 mb-12">
 
@@ -168,13 +161,12 @@ export default async function IndustryPage({
           </h2>
 
           <p className="text-gray-400">
-            {industryData.estimatedCosts}
+            {industryData.estimatedCosts ?? "Costs vary depending on permits required by local and state authorities."}
           </p>
 
         </div>
 
-
-        {/* Common Licenses */}
+        {/* COMMON LICENSES */}
 
         <div className="bg-zinc-900 border border-gray-800 rounded-xl p-8 mb-12">
 
@@ -184,7 +176,7 @@ export default async function IndustryPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {industryData.commonLicenses?.map((license, index) => (
+            {(industryData.commonLicenses ?? []).map((license, index) => (
 
               <div
                 key={index}
@@ -211,8 +203,7 @@ export default async function IndustryPage({
 
         </div>
 
-
-        {/* State Regulatory Overview */}
+        {/* STATE OVERVIEW */}
 
         <div className="bg-zinc-900 border border-gray-800 rounded-xl p-8 mb-12">
 
@@ -230,7 +221,6 @@ export default async function IndustryPage({
 
         </div>
 
-
         {/* FAQ */}
 
         <div className="bg-zinc-900 border border-gray-800 rounded-xl p-8">
@@ -241,7 +231,7 @@ export default async function IndustryPage({
 
           <div className="space-y-6">
 
-            {industryData.faqs?.map((faq, index) => (
+            {(industryData.faqs ?? []).map((faq, index) => (
 
               <div key={index}>
 
