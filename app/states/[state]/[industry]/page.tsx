@@ -184,7 +184,7 @@ export default async function IndustryPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {industryData.commonLicenses.map((license, index) => (
+            {industryData.commonLicenses?.map((license, index) => (
 
               <div
                 key={index}
@@ -241,7 +241,7 @@ export default async function IndustryPage({
 
           <div className="space-y-6">
 
-            {industryData.faqs.map((faq, index) => (
+            {industryData.faqs?.map((faq, index) => (
 
               <div key={index}>
 
