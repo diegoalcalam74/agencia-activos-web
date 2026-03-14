@@ -5,17 +5,17 @@ export type Industry = {
   metaDescription: string
   overview: string
 
-  typicalPermits: string[]
+  typicalPermits?: string[]
 
-  estimatedCosts: string
+  estimatedCosts?: string
 
-  commonLicenses: {
+  commonLicenses?: {
     license: string
     cost: string
     processingTime: string
   }[]
 
-  faqs: {
+  faqs?: {
     question: string
     answer: string
   }[]
